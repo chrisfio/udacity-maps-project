@@ -1,0 +1,29 @@
+<!-- Udacity Maps Project-->
+<!doctype html>
+
+<html lang="en">
+
+<head>
+	<link rel="stylesheet" href="css/style.css">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<head>
+</head>
+<body>
+	<div id="map"></div>
+	<div class="listview">
+		<ul data-bind="foreach: mapList">
+			<li>
+				<span data-bind="text: name, click: $parent.setEstablishment"></span>
+			</li>
+		</ul>
+	</div>
+	<script src="js/knockout-3.2.0.js"></script>
+	<script src="js/app-knockout.js"></script>
+	<script src="js/app-gmaps.js"></script>
+	<script async defer
+	    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyD0pfkXu1iaOZnhYSCwktjOUHJ66kB6B_c&v=3&callback=initMap">
+	</script>
+</body>
+</html>
+
+
