@@ -2,6 +2,7 @@
 var map;
 var markers = []; 
 var marker; 
+var bounds; 
 
 // Function to initialize the map
 function initMap() {
@@ -13,7 +14,7 @@ function initMap() {
 	});
 
 	var largeInfoWindow = new google.maps.InfoWindow(); 
-	var bounds = new google.maps.LatLngBounds(); 
+	bounds = new google.maps.LatLngBounds(); 
 	
 	var fourSquareBaseURL = "https://api.foursquare.com/v2/venues/";
 	var apiKeyFourSquare = "RLYHCNDHNQF3TZLGQQ5CXWRBVRQX5YPSGCHGALECU2BI0RGZ";
@@ -54,21 +55,25 @@ function initMap() {
 
 		marker.addListener('click', function(){
 			toggleBounce(this);
-			populateInfoWindow(this, largeInfoWindow, establishment.rating, establishment.phoneNumber, establishment.address, formattedCityStateZip);
+			populateInfoWindow(this, largeInfoWindow, establishment.rating, establishment.phoneNumber, establishment.address, formattedCityStateZip, establishment.id);
 		});
 
 		bounds.extend(marker.position);
 
 	});
 	map.fitBounds(bounds);
+
+	document.getElementById("show-button").addEventListener('click', showListings);
+	document.getElementById("hide-button").addEventListener('click', hideListings);
 }
 
-function populateInfoWindow(marker, infoWindow, fourSquareRating, phoneNumber, address, cityStateZip) {
+function populateInfoWindow(marker, infoWindow, fourSquareRating, phoneNumber, address, cityStateZip, id) {
 	// Check to make sure the infowindow is not already opened on this marker.
 	if (infoWindow.marker != marker) {
 	  infoWindow.marker = marker;
 	  infoWindow.setContent(
-		'<div class="infoWindow-title">' + marker.title + '</div>' +
+		'<div class="infoWindow-title"><a href="https://foursquare.com/v/' + 
+			id + '">' + marker.title + '</a></div>' +
 		'<div class="infoWindow-rating">' + "Rating: " + fourSquareRating + '</div>' +
 		'<div class="infoWindow-phone">' + phoneNumber + '</div>' +
 		'<div class="infoWindow-address">' + address + '</div>' +
@@ -100,4 +105,21 @@ function formatDate(date) {
 	return year + month + day;
 }
 
+function showListings(){
+	for(var i = 0; i < markers.length; i++){
+		markers[i].setMap(map);
+		bounds.extend(markers[i].position); 
+	}
+	map.fitBounds(bounds); 
+	document.getElementById("show-button").style["font-weight"] = "500";
+	document.getElementById("hide-button").style["font-weight"] = "100";
+}
+
+function hideListings() {
+	for(var i = 0; i < markers.length; i++){
+		markers[i].setMap(null); 
+	}
+	document.getElementById("show-button").style["font-weight"] = "100";
+	document.getElementById("hide-button").style["font-weight"] = "500";
+}
 

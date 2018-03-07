@@ -5,16 +5,24 @@
 
 <head>
 	<link rel="stylesheet" href="css/style.css">
+	<link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <head>
 </head>
 <body>
 	<div id="map"></div>
+	<div class="show-hide-listings">
+		<div class="show-container">
+			<div id="show-button">Show</div>
+		</div>
+		<div class="hide-container">
+			<div id="hide-button">Hide</div>
+		</div>
+	</div>
 	<div class="listview">
+		<h2 class="title-establishments">Establishments Nearby</h2>
 		<ul data-bind="foreach: mapList">
-			<li>
-				<span data-bind="text: name, click: $parent.setEstablishment"></span>
-			</li>
+			<a href="#"><li class="map-list-item" data-bind="text: name, click: $parent.populateInfoWindow"></li></a>
 		</ul>
 	</div>
 	<script
