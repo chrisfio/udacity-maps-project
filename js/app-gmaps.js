@@ -32,24 +32,29 @@ function initMap() {
 		});	
 		markers.push(marker); 
 
-		marker.addListener('click', function(){
-			var fourSquareFullURL = fourSquareBaseURL + 
-									establishment.id + 
-									"?client_id=" + 
-									apiClientFourSquare + 
-									"&client_secret=" + 
-									apiKeyFourSquare + 
-									"&v=" +
-									fourSquareDate;
 
-			$.getJSON(fourSquareFullURL).done(function(data){
-				self.fourSquareRating = data.response.venue.rating; 
-				self.fourSquareColor = data.response.venue.ratingColor; 
-			}).fail(function(){
-				alert("Failure connecting to Four Square Database"); 
-			});
+		var formattedCityStateZip = establishment.city + ", " + establishment.state + " " + establishment.zip; 
+
+		var fourSquareFullURL = fourSquareBaseURL + 
+						establishment.id + 
+						"?client_id=" + 
+						apiClientFourSquare + 
+						"&client_secret=" + 
+						apiKeyFourSquare + 
+						"&v=" +
+						fourSquareDate;
+
+		$.getJSON(fourSquareFullURL).done(function(data){
+			establishment.rating = data.response.venue.rating; 
+			establishment.ratingColor = data.response.venue.ratingColor; 
+			establishment.phoneNumber = data.response.venue.contact.formattedPhone ? data.response.venue.contact.formattedPhone : "";
+		}).fail(function(){
+			alert("Failure connecting to Four Square Database"); 
+		});
+
+		marker.addListener('click', function(){
 			toggleBounce(this);
-			populateInfoWindow(this, largeInfoWindow, self.fourSquareRating);
+			populateInfoWindow(this, largeInfoWindow, establishment.rating, establishment.phoneNumber, establishment.address, formattedCityStateZip);
 		});
 
 		bounds.extend(marker.position);
@@ -58,13 +63,16 @@ function initMap() {
 	map.fitBounds(bounds);
 }
 
-function populateInfoWindow(marker, infoWindow, fourSquareRating) {
+function populateInfoWindow(marker, infoWindow, fourSquareRating, phoneNumber, address, cityStateZip) {
 	// Check to make sure the infowindow is not already opened on this marker.
 	if (infoWindow.marker != marker) {
 	  infoWindow.marker = marker;
 	  infoWindow.setContent(
 		'<div class="infoWindow-title">' + marker.title + '</div>' +
-		'<div>' + fourSquareRating + '</div>'
+		'<div class="infoWindow-rating">' + "Rating: " + fourSquareRating + '</div>' +
+		'<div class="infoWindow-phone">' + phoneNumber + '</div>' +
+		'<div class="infoWindow-address">' + address + '</div>' +
+		'<div class="infoWindow-cityStateZip">' + cityStateZip + '</div>'
 		);
 	  infoWindow.open(map, marker);
 	  // Make sure the marker property is cleared if the infowindow is closed.
@@ -91,3 +99,5 @@ function formatDate(date) {
 	var year = date.getFullYear().toString();
 	return year + month + day;
 }
+
+
