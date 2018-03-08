@@ -26,6 +26,31 @@ var ViewModel = function() {
 	this.incrementCounter = function() {
 		self.currentEstablishment().clickCount(self.currentEstablishment().clickCount() + 1);
 	};
+	
+	self.populateInfoWindow = populateInfoWindow;
+
+	var fourSquareBaseURL = "https://api.foursquare.com/v2/venues/";
+	var apiKeyFourSquare = "RLYHCNDHNQF3TZLGQQ5CXWRBVRQX5YPSGCHGALECU2BI0RGZ";
+	var apiClientFourSquare = "VRQPDNPRC4MJ2SB3VC0CT5H21CHXRI4UIMTYV5WI4XT1ONSU";
+	var fourSquareDate = formatDate(new Date());
+
+	var formattedCityStateZip = establishment.city + ", " + establishment.state + " " + establishment.zip; 
+
+	var fourSquareFullURL = fourSquareBaseURL + 
+					establishment.id + 
+					"?client_id=" + 
+					apiClientFourSquare + 
+					"&client_secret=" + 
+					apiKeyFourSquare + 
+					"&v=" +
+					fourSquareDate;
+	$.getJSON(fourSquareFullURL).done(function(data){
+		establishment.rating = data.response.venue.rating; 
+		establishment.ratingColor = data.response.venue.ratingColor; 
+		establishment.phoneNumber = data.response.venue.contact.formattedPhone ? data.response.venue.contact.formattedPhone : "";
+	}).fail(function(){
+		alert("Failure connecting to Four Square Database"); 
+	});
 }
 
 var defaultList = [
@@ -120,8 +145,9 @@ var defaultList = [
 		location: {lat: 37.351334, lng: -122.031966}
 	}
 ]
+my = { viewModel: new ViewModel() };
+ko.applyBindings(my.viewModel);
 
-ko.applyBindings(new ViewModel()); 
 
 
 

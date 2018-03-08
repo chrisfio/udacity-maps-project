@@ -3,6 +3,7 @@ var map;
 var markers = []; 
 var marker; 
 var bounds; 
+var largeInfoWindow; 
 
 // Function to initialize the map
 function initMap() {
@@ -13,7 +14,7 @@ function initMap() {
 	  zoom: 14
 	});
 
-	var largeInfoWindow = new google.maps.InfoWindow(); 
+	largeInfoWindow = new google.maps.InfoWindow(); 
 	bounds = new google.maps.LatLngBounds(); 
 	
 	var fourSquareBaseURL = "https://api.foursquare.com/v2/venues/";
@@ -21,7 +22,7 @@ function initMap() {
 	var apiClientFourSquare = "VRQPDNPRC4MJ2SB3VC0CT5H21CHXRI4UIMTYV5WI4XT1ONSU";
 	var fourSquareDate = formatDate(new Date());
 
-	defaultList.forEach(function(establishment){ 
+	my.viewModel.mapList().forEach(function(establishment){ 
 
 		var self = this; 
 
@@ -32,26 +33,6 @@ function initMap() {
 			animation: google.maps.Animation.DROP  
 		});	
 		markers.push(marker); 
-
-
-		var formattedCityStateZip = establishment.city + ", " + establishment.state + " " + establishment.zip; 
-
-		var fourSquareFullURL = fourSquareBaseURL + 
-						establishment.id + 
-						"?client_id=" + 
-						apiClientFourSquare + 
-						"&client_secret=" + 
-						apiKeyFourSquare + 
-						"&v=" +
-						fourSquareDate;
-
-		$.getJSON(fourSquareFullURL).done(function(data){
-			establishment.rating = data.response.venue.rating; 
-			establishment.ratingColor = data.response.venue.ratingColor; 
-			establishment.phoneNumber = data.response.venue.contact.formattedPhone ? data.response.venue.contact.formattedPhone : "";
-		}).fail(function(){
-			alert("Failure connecting to Four Square Database"); 
-		});
 
 		marker.addListener('click', function(){
 			toggleBounce(this);
