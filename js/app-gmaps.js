@@ -29,6 +29,7 @@ function initMap() {
 		marker = new google.maps.Marker({
 			position: establishment.location,
 			map: map,
+			id: establishment.id,
 			title: establishment.name,
 			animation: google.maps.Animation.DROP  
 		});	
@@ -36,7 +37,7 @@ function initMap() {
 
 		marker.addListener('click', function(){
 			toggleBounce(this);
-			populateInfoWindow;
+			populateInfoWindow(establishment);
 		});
 
 		bounds.extend(marker.position);
@@ -48,25 +49,41 @@ function initMap() {
 	document.getElementById("hide-button").addEventListener('click', hideListings);
 }
 
-function populateInfoWindow() {
-	// Check to make sure the infowindow is not already opened on this marker.
-	if (infoWindow.marker != marker) {
-	  infoWindow.marker = marker;
-	  infoWindow.setContent(
-		'<div class="infoWindow-title"><a href="https://foursquare.com/v/' + 
-			id + '">' + establishment.title + '</a></div>' +
-		'<div class="infoWindow-rating">' + "Rating: " + establishment.rating + '</div>' +
-		'<div class="infoWindow-phone">' + establishment.phoneNumber + '</div>' +
-		'<div class="infoWindow-address">' + establishment.address + '</div>' +
-		'<div class="infoWindow-cityStateZip">' + establishment.city + ", " +
-		establishment.state + " " establishment.zip + '</div>'
-		);
-	  infoWindow.open(map, marker);
-	  // Make sure the marker property is cleared if the infowindow is closed.
-	  infoWindow.addListener('closeclick',function(){
-		infoWindow.setMarker = null;
-	  });
-	}
+function populateInfoWindow(establishment) {
+
+	var fourSquareFullURL = fourSquareBaseURL + 
+					establishment.id + 
+					"?client_id=" + 
+					apiClientFourSquare + 
+					"&client_secret=" + 
+					apiKeyFourSquare + 
+					"&v=" +
+					fourSquareDate;
+	$.getJSON(fourSquareFullURL).done(function(data){
+		establishment.rating = data.response.venue.rating; 
+		establishment.ratingColor = data.response.venue.ratingColor; 
+		establishment.phoneNumber = data.response.venue.contact.formattedPhone ? data.response.venue.contact.formattedPhone : "";
+			// Check to make sure the infowindow is not already opened on this marker.
+		if (largeInfoWindow.marker != marker) {
+			largeInfoWindow.marker = marker;
+			largeInfoWindow.setContent(
+				'<div class="infoWindow-title"><a href="https://foursquare.com/v/' + 
+					id + '">' + establishment.title + '</a></div>' +
+				'<div class="infoWindow-rating">' + "Rating: " + establishment.rating + '</div>' +
+				'<div class="infoWindow-phone">' + establishment.phoneNumber + '</div>' +
+				'<div class="infoWindow-address">' + establishment.address + '</div>' +
+				'<div class="infoWindow-cityStateZip">' + establishment.city + ", " +
+				establishment.state + " " establishment.zip + '</div>'
+				);
+			largeInfoWindow.open(map, marker);
+			// Make sure the marker property is cleared if the infowindow is closed.
+			largeInfoWindow.addListener('closeclick',function(){
+				largeInfoWindow.setMarker = null;
+			});
+		}
+	}).fail(function(){
+		alert("Failure connecting to Four Square Database"); 
+	});
 }
 
 function toggleBounce(marker) {
