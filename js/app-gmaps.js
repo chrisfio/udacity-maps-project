@@ -36,7 +36,7 @@ function initMap() {
 
 		marker.addListener('click', function(){
 			toggleBounce(this);
-			populateInfoWindow(this, largeInfoWindow, establishment.rating, establishment.phoneNumber, establishment.address, formattedCityStateZip, establishment.id);
+			populateInfoWindow;
 		});
 
 		bounds.extend(marker.position);
@@ -48,17 +48,18 @@ function initMap() {
 	document.getElementById("hide-button").addEventListener('click', hideListings);
 }
 
-function populateInfoWindow(marker, infoWindow, fourSquareRating, phoneNumber, address, cityStateZip, id) {
+function populateInfoWindow() {
 	// Check to make sure the infowindow is not already opened on this marker.
 	if (infoWindow.marker != marker) {
 	  infoWindow.marker = marker;
 	  infoWindow.setContent(
 		'<div class="infoWindow-title"><a href="https://foursquare.com/v/' + 
-			id + '">' + marker.title + '</a></div>' +
-		'<div class="infoWindow-rating">' + "Rating: " + fourSquareRating + '</div>' +
-		'<div class="infoWindow-phone">' + phoneNumber + '</div>' +
-		'<div class="infoWindow-address">' + address + '</div>' +
-		'<div class="infoWindow-cityStateZip">' + cityStateZip + '</div>'
+			id + '">' + establishment.title + '</a></div>' +
+		'<div class="infoWindow-rating">' + "Rating: " + establishment.rating + '</div>' +
+		'<div class="infoWindow-phone">' + establishment.phoneNumber + '</div>' +
+		'<div class="infoWindow-address">' + establishment.address + '</div>' +
+		'<div class="infoWindow-cityStateZip">' + establishment.city + ", " +
+		establishment.state + " " establishment.zip + '</div>'
 		);
 	  infoWindow.open(map, marker);
 	  // Make sure the marker property is cleared if the infowindow is closed.
