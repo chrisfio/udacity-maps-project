@@ -1,11 +1,12 @@
 var Establishment = function(data) {
-	this.name = ko.observable(data.name);
-	this.address = ko.observable(data.address);
-	this.city = ko.observable(data.city);
-	this.state = ko.observable(data.state);
-	this.zip = ko.observable(data.zip);
-    this.category = ko.observable(data.category);
-    this.location = ko.observable(data.location); 
+	this.name = data.name;
+	this.address = data.address;
+	this.city = data.city;
+	this.state = data.state;
+	this.zip = data.zip;
+    this.category = data.category;
+    this.location = data.location;
+    this.id = data.id;   
 }
 
 var ViewModel = function() {
@@ -27,7 +28,6 @@ var ViewModel = function() {
 		self.currentEstablishment().clickCount(self.currentEstablishment().clickCount() + 1);
 	};
 	
-	self.populateInfoWindow = populateInfoWindow;
 }
 
 ko.applyBindings(ViewModel);

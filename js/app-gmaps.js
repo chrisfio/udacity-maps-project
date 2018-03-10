@@ -1,17 +1,17 @@
 // Map variable
 var map;
 var markers = []; 
-var marker, bounds, largeInfoWindow, fourSquareDate, fourSquareBaseURL;
-var apiKeyFourSquare;
-var apiClientFourSquare
+var marker, bounds, largeInfoWindow;
+var initLaunch = true; 
+var isHidden = false; 
+
+var fourSquareDate = formatDate(new Date());
+var fourSquareBaseURL = "https://api.foursquare.com/v2/venues/";
+var apiKeyFourSquare = "RLYHCNDHNQF3TZLGQQ5CXWRBVRQX5YPSGCHGALECU2BI0RGZ";
+var apiClientFourSquare = "VRQPDNPRC4MJ2SB3VC0CT5H21CHXRI4UIMTYV5WI4XT1ONSU";
 
 // Function to initialize the map
 function initMap() {
-
-	fourSquareDate = formatDate(new Date());
-	fourSquareBaseURL = "https://api.foursquare.com/v2/venues/";
-	apiKeyFourSquare = "RLYHCNDHNQF3TZLGQQ5CXWRBVRQX5YPSGCHGALECU2BI0RGZ";
-	apiClientFourSquare = "VRQPDNPRC4MJ2SB3VC0CT5H21CHXRI4UIMTYV5WI4XT1ONSU";
 
 	// Constructor to create a new map JS object. 
 	map = new google.maps.Map(document.getElementById('map'), {
@@ -36,7 +36,6 @@ function initMap() {
 		markers.push(marker); 
 
 		marker.addListener('click', function(){
-			toggleBounce(this);
 			populateInfoWindow(establishment);
 		});
 
@@ -54,7 +53,7 @@ function populateInfoWindow(establishment) {
 	
 	for(var i = 0; i < markers.length; i++){
 		if(markers[i].id == establishment.id){
-			marker.id = establishment.id; 
+			marker = markers[i];
 		} 
 	}
 	var fourSquareFullURL = fourSquareBaseURL + 
@@ -69,19 +68,26 @@ function populateInfoWindow(establishment) {
 		establishment.rating = data.response.venue.rating; 
 		establishment.ratingColor = data.response.venue.ratingColor; 
 		establishment.phoneNumber = data.response.venue.contact.formattedPhone ? data.response.venue.contact.formattedPhone : "";
-			// Check to make sure the infowindow is not already opened on this marker.
+		// Check to make sure the infowindow is not already opened on this marker.
 		if (largeInfoWindow.marker != marker) {
 			largeInfoWindow.marker = marker;
 			largeInfoWindow.setContent(
 				'<div class="infoWindow-title"><a href="https://foursquare.com/v/' + 
-					establishment.id + '">' + establishment.title + '</a></div>' +
+				establishment.id + '" target="_blank">' + establishment.name + '</a></div>' +
 				'<div class="infoWindow-rating">' + "Rating: " + establishment.rating + '</div>' +
 				'<div class="infoWindow-phone">' + establishment.phoneNumber + '</div>' +
 				'<div class="infoWindow-address">' + establishment.address + '</div>' +
 				'<div class="infoWindow-cityStateZip">' + establishment.city + ", " +
 				establishment.state + " " + establishment.zip + '</div>'
 				);
-			largeInfoWindow.open(map, marker);
+			if(isHidden){
+				hideListings();
+			}
+			if (initLaunch==false){
+				largeInfoWindow.open(map, marker);
+				toggleBounce(marker);
+				marker.setMap(map);
+			}
 			// Make sure the marker property is cleared if the infowindow is closed.
 			largeInfoWindow.addListener('closeclick',function(){
 				largeInfoWindow.setMarker = null;
@@ -115,6 +121,7 @@ function showListings(){
 		markers[i].setMap(map);
 		bounds.extend(markers[i].position); 
 	}
+	isHidden = false; 
 	map.fitBounds(bounds); 
 	document.getElementById("show-button").style["font-weight"] = "500";
 	document.getElementById("hide-button").style["font-weight"] = "100";
@@ -124,7 +131,12 @@ function hideListings() {
 	for(var i = 0; i < markers.length; i++){
 		markers[i].setMap(null); 
 	}
+	isHidden = true; 
 	document.getElementById("show-button").style["font-weight"] = "100";
 	document.getElementById("hide-button").style["font-weight"] = "500";
+}
+
+window.onload = function () { 
+ 	initLaunch = false;
 }
 

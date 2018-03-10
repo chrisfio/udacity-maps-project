@@ -20,9 +20,11 @@
 		</div>
 	</div>
 	<div class="listview">
-		<h2 class="title-establishments">Establishments Nearby</h2>
+		<div class="title-container">
+			<h2 class="title-establishments">Establishments Nearby</h2>
+		</div>
 		<ul data-bind="foreach: mapList">
-			<a href="#"><li class="map-list-item" data-bind="text: name, click: $parent.populateInfoWindow"></li></a>
+			<a href="#"><li><span class="map-list-item" data-bind="text: name, click: populateInfoWindow($data)"></span><span class="list-item-category" data-bind="text: category"></span></li></a>
 		</ul>
 	</div>
 	<script
