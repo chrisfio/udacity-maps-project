@@ -1,12 +1,17 @@
 // Map variable
 var map;
 var markers = []; 
-var marker; 
-var bounds; 
-var largeInfoWindow; 
+var marker, bounds, largeInfoWindow, fourSquareDate, fourSquareBaseURL;
+var apiKeyFourSquare;
+var apiClientFourSquare
 
 // Function to initialize the map
 function initMap() {
+
+	fourSquareDate = formatDate(new Date());
+	fourSquareBaseURL = "https://api.foursquare.com/v2/venues/";
+	apiKeyFourSquare = "RLYHCNDHNQF3TZLGQQ5CXWRBVRQX5YPSGCHGALECU2BI0RGZ";
+	apiClientFourSquare = "VRQPDNPRC4MJ2SB3VC0CT5H21CHXRI4UIMTYV5WI4XT1ONSU";
 
 	// Constructor to create a new map JS object. 
 	map = new google.maps.Map(document.getElementById('map'), {
@@ -17,12 +22,7 @@ function initMap() {
 	largeInfoWindow = new google.maps.InfoWindow(); 
 	bounds = new google.maps.LatLngBounds(); 
 	
-	var fourSquareBaseURL = "https://api.foursquare.com/v2/venues/";
-	var apiKeyFourSquare = "RLYHCNDHNQF3TZLGQQ5CXWRBVRQX5YPSGCHGALECU2BI0RGZ";
-	var apiClientFourSquare = "VRQPDNPRC4MJ2SB3VC0CT5H21CHXRI4UIMTYV5WI4XT1ONSU";
-	var fourSquareDate = formatDate(new Date());
-
-	my.viewModel.mapList().forEach(function(establishment){ 
+	defaultList.forEach(function(establishment){ 
 
 		var self = this; 
 
@@ -51,6 +51,12 @@ function initMap() {
 
 function populateInfoWindow(establishment) {
 
+	
+	for(var i = 0; i < markers.length; i++){
+		if(markers[i].id == establishment.id){
+			marker.id = establishment.id; 
+		} 
+	}
 	var fourSquareFullURL = fourSquareBaseURL + 
 					establishment.id + 
 					"?client_id=" + 
@@ -68,12 +74,12 @@ function populateInfoWindow(establishment) {
 			largeInfoWindow.marker = marker;
 			largeInfoWindow.setContent(
 				'<div class="infoWindow-title"><a href="https://foursquare.com/v/' + 
-					id + '">' + establishment.title + '</a></div>' +
+					establishment.id + '">' + establishment.title + '</a></div>' +
 				'<div class="infoWindow-rating">' + "Rating: " + establishment.rating + '</div>' +
 				'<div class="infoWindow-phone">' + establishment.phoneNumber + '</div>' +
 				'<div class="infoWindow-address">' + establishment.address + '</div>' +
 				'<div class="infoWindow-cityStateZip">' + establishment.city + ", " +
-				establishment.state + " " establishment.zip + '</div>'
+				establishment.state + " " + establishment.zip + '</div>'
 				);
 			largeInfoWindow.open(map, marker);
 			// Make sure the marker property is cleared if the infowindow is closed.
