@@ -5,6 +5,7 @@ var Establishment = function(data) {
 	this.state = data.state;
 	this.zip = data.zip;
     this.category = data.category;
+    this.show = ko.observable(data.show);
     this.location = data.location;
     this.id = data.id;   
 }

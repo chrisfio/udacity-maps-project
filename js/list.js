@@ -6,6 +6,7 @@ var defaultList = [
 		state: "CA",
 		zip: "94087",
 		category: "Coffee",
+		show: true, 
 		id: "4b96d346f964a52011e734e3",
 		location: {lat: 37.3526168, lng: -122.0077989}
 	},
@@ -16,6 +17,7 @@ var defaultList = [
 		state: "CA",
 		zip: "94087",
 		category: "Coffee",
+        show: true, 
 		id: "56a3e74f498e2d6b3300a1e8",
 		location: {lat: 37.362673, lng: -122.026963}
 	},
@@ -26,6 +28,7 @@ var defaultList = [
 		state: "CA",
 		zip: "95051",
 		category: "Coffee",
+		show: true,
 		id: "4a62aa1af964a5206fc41fe3",
 		location: {lat: 37.3537125, lng: -121.994364}
 	},
@@ -36,6 +39,7 @@ var defaultList = [
 		state: "CA",
 		zip: "95051",
 		category: "Restaurant",
+		show: true,
 		id: "57e582e6498eabc465bf18f6",
 		location: {lat: 37.3514476, lng: -122.0000549}
 	},
@@ -46,6 +50,7 @@ var defaultList = [
 		state: "CA",
 		zip: "94086",
 		category: "Restaurant",
+		show: true,
 		id: "4b7e216bf964a520dbe32fe3",
 		location: {lat: 37.3537431, lng: -122.0133126}
 	},
@@ -56,6 +61,7 @@ var defaultList = [
 		state: "CA",
 		zip: "94087",
 		category: "Restaurant",
+		show: true,
 		id: "4b32cc85f964a520241425e3",
 		location: {lat: 37.3526094, lng: -122.0037127}
 	},
@@ -66,6 +72,7 @@ var defaultList = [
 		state: "CA",
 		zip: "94087",
 		category: "Bar",
+		show: true,
 		id: "4bb02d05f964a5200c3b3ce3",
 		location: {lat: 37.351960, lng: -122.011840}
 	},
@@ -76,6 +83,7 @@ var defaultList = [
 		state: "CA",
 		zip: "95051",
 		category: "Bar",
+		show: true,
 		id: "4abf24f0f964a520db9020e3",
 		location: {lat: 37.337928, lng: -121.994327}
 	},
@@ -86,6 +94,7 @@ var defaultList = [
 		state: "CA",
 		zip: "94087",
 		category: "Bar",
+		show: true,
 		id: "530282a7498ea36474715482",
 		location: {lat: 37.351334, lng: -122.031966}
 	}

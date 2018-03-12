@@ -19,12 +19,28 @@
 			<div id="hide-button">Hide</div>
 		</div>
 	</div>
-	<div class="listview">
+	<div class="filter-listings">
+		<div class="all-container">
+			<div id="all-button">All</div>
+		</div>
+		<div class="restaurant-container">
+			<div id="restaurant-button">Food</div>
+		</div>
+		<div class="bar-container">
+			<div id="bar-button">Bars</div>
+		</div>
+		<div class="coffee-container">
+			<div id="coffee-button">Coffee</div>
+		</div>
+	</div>
+	<div class="listview" id="listview-id">
 		<div class="title-container">
 			<h2 class="title-establishments">Establishments Nearby</h2>
 		</div>
 		<ul data-bind="foreach: mapList">
-			<a href="#"><li><span class="map-list-item" data-bind="text: name, click: populateInfoWindow($data)"></span><span class="list-item-category" data-bind="text: category"></span></li></a>
+			<div class="if-container" data-bind="if: show()">
+				<a href="#"><li><span class="map-list-item" data-bind="text: name, click: populateInfoWindow($data)"></span><span class="list-item-category" data-bind="text: category"></span></li></a>
+			</div>
 		</ul>
 	</div>
 	<script

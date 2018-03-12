@@ -30,6 +30,10 @@ li {
   padding-top: 3%;
 }
 
+li:hover {
+  background: #dfdfdf;
+}
+
 .title-container{
   background-color: #4285F4;
   color: #fff;
@@ -86,6 +90,34 @@ h2 {
   position: relative;
 }
 
+.filter-listings {
+  position: absolute;
+  margin: 10px;
+  cursor: pointer;
+  left: 0px;
+  top: 82px;
+}
+
+.all-container {
+  float: left;
+  position: relative;
+}
+
+.restaurant-container {
+  float: left;
+  position: relative;
+}
+
+.bar-container{
+  float: left;
+  position: relative;
+}
+
+.coffee-container{
+  float: left;
+  position: relative;
+}
+
 #show-button {
   direction: ltr;
   overflow: hidden;
@@ -124,7 +156,81 @@ h2 {
   font-weight: 100;
 }
 
+#all-button {
+  direction: ltr;
+  overflow: hidden;
+  text-align: center;
+  position: relative;
+  color: rgb(0, 0, 0);
+  font-family: Roboto, Arial, sans-serif;
+  user-select: none;
+  font-size: 11px;
+  background-color: rgb(255, 255, 255);
+  padding: 11px;
+  border-bottom-left-radius: 2px;
+  border-top-left-radius: 2px;
+  background-clip: padding-box;
+  box-shadow: rgba(0, 0, 0, 0.3) 0px 1px 4px -1px;
+  min-width: 21px;
+  font-weight: 500;
+}
 
+#restaurant-button {
+  direction: ltr;
+  overflow: hidden;
+  text-align: center;
+  position: relative;
+  color: rgb(0, 0, 0);
+  font-family: Roboto, Arial, sans-serif;
+  user-select: none;
+  font-size: 11px;
+  background-color: rgb(255, 255, 255);
+  padding: 11px;
+  border-bottom-left-radius: 2px;
+  border-top-left-radius: 2px;
+  background-clip: padding-box;
+  box-shadow: rgba(0, 0, 0, 0.3) 0px 1px 4px -1px;
+  min-width: 21px;
+  font-weight: 100;
+}
+
+#bar-button {
+  direction: ltr;
+  overflow: hidden;
+  text-align: center;
+  position: relative;
+  color: rgb(0, 0, 0);
+  font-family: Roboto, Arial, sans-serif;
+  user-select: none;
+  font-size: 11px;
+  background-color: rgb(255, 255, 255);
+  padding: 11px;
+  border-bottom-left-radius: 2px;
+  border-top-left-radius: 2px;
+  background-clip: padding-box;
+  box-shadow: rgba(0, 0, 0, 0.3) 0px 1px 4px -1px;
+  min-width: 21px;
+  font-weight: 100;
+}
+
+#coffee-button {
+  direction: ltr;
+  overflow: hidden;
+  text-align: center;
+  position: relative;
+  color: rgb(0, 0, 0);
+  font-family: Roboto, Arial, sans-serif;
+  user-select: none;
+  font-size: 11px;
+  background-color: rgb(255, 255, 255);
+  padding: 11px;
+  border-bottom-left-radius: 2px;
+  border-top-left-radius: 2px;
+  background-clip: padding-box;
+  box-shadow: rgba(0, 0, 0, 0.3) 0px 1px 4px -1px;
+  min-width: 21px;
+  font-weight: 100;
+}
 
 @media only screen and (max-width: 500px) {
 

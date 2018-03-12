@@ -30,6 +30,7 @@ function initMap() {
 			position: establishment.location,
 			map: map,
 			id: establishment.id,
+			category: establishment.category,
 			title: establishment.name,
 			animation: google.maps.Animation.DROP  
 		});	
@@ -44,13 +45,16 @@ function initMap() {
 	});
 	map.fitBounds(bounds);
 
+	document.getElementById("all-button").addEventListener('click', showListings);
+	document.getElementById("restaurant-button").addEventListener('click', filterRestaurants);
+	document.getElementById("bar-button").addEventListener('click', filterBars);
+	document.getElementById("coffee-button").addEventListener('click', filterCoffee);
 	document.getElementById("show-button").addEventListener('click', showListings);
 	document.getElementById("hide-button").addEventListener('click', hideListings);
 }
 
 function populateInfoWindow(establishment) {
 
-	
 	for(var i = 0; i < markers.length; i++){
 		if(markers[i].id == establishment.id){
 			marker = markers[i];
@@ -121,19 +125,120 @@ function showListings(){
 		markers[i].setMap(map);
 		bounds.extend(markers[i].position); 
 	}
+	defaultList.forEach(function(establishment){ 
+		establishment.show = true; 
+	});
+
 	isHidden = false; 
 	map.fitBounds(bounds); 
 	document.getElementById("show-button").style["font-weight"] = "500";
+	document.getElementById("all-button").style["font-weight"] = "500";
+	document.getElementById("restaurant-button").style["font-weight"] = "100";
+	document.getElementById("bar-button").style["font-weight"] = "100";
+	document.getElementById("coffee-button").style["font-weight"] = "100";
 	document.getElementById("hide-button").style["font-weight"] = "100";
+	document.getElementById("listview-id").style["display"] = "block";
 }
 
 function hideListings() {
 	for(var i = 0; i < markers.length; i++){
 		markers[i].setMap(null); 
 	}
+	defaultList[1].show = false; 
+	defaultList.forEach(function(establishment){ 
+		establishment.show = false;
+	});
 	isHidden = true; 
 	document.getElementById("show-button").style["font-weight"] = "100";
+	document.getElementById("all-button").style["font-weight"] = "100";
+	document.getElementById("restaurant-button").style["font-weight"] = "100";
+	document.getElementById("bar-button").style["font-weight"] = "100";
+	document.getElementById("coffee-button").style["font-weight"] = "100";
 	document.getElementById("hide-button").style["font-weight"] = "500";
+}
+
+function filterRestaurants() {
+	for(var i = 0; i < markers.length; i++){
+		if (markers[i].category === "Restaurant"){
+			markers[i].setMap(map);
+			bounds.extend(markers[i].position); 
+		}
+		else {
+			markers[i].setMap(null); 
+		}
+	}
+	defaultList.forEach(function(establishment){
+		if(establishment.category=="Restaurant"){
+			establishment.show = true;
+		} 
+		else{
+			establishment.show = false;
+		} 
+	});
+	isHidden = false; 
+	map.fitBounds(bounds); 
+	document.getElementById("show-button").style["font-weight"] = "500";
+	document.getElementById("all-button").style["font-weight"] = "100";
+	document.getElementById("restaurant-button").style["font-weight"] = "500";
+	document.getElementById("bar-button").style["font-weight"] = "100";
+	document.getElementById("coffee-button").style["font-weight"] = "100";
+	document.getElementById("hide-button").style["font-weight"] = "100";
+}
+
+function filterBars() {
+	for(var i = 0; i < markers.length; i++){
+		if (markers[i].category === "Bar"){
+			markers[i].setMap(map);
+			bounds.extend(markers[i].position); 
+		}
+		else {
+			markers[i].setMap(null); 
+		}
+	}
+	defaultList.forEach(function(establishment){
+		if(establishment.category=="Bar"){
+			establishment.show = true;
+		} 
+		else{
+			establishment.show = false;
+		} 
+	});
+	isHidden = false; 
+	map.fitBounds(bounds); 
+	document.getElementById("show-button").style["font-weight"] = "500";
+	document.getElementById("all-button").style["font-weight"] = "100";
+	document.getElementById("restaurant-button").style["font-weight"] = "100";
+	document.getElementById("bar-button").style["font-weight"] = "500";
+	document.getElementById("coffee-button").style["font-weight"] = "100";
+	document.getElementById("hide-button").style["font-weight"] = "100";
+}
+
+function filterCoffee() {
+	for(var i = 0; i < markers.length; i++){
+		if (markers[i].category === "Coffee"){
+			markers[i].setMap(map);
+			bounds.extend(markers[i].position); 
+		}
+		else { 
+			markers[i].setMap(null); 
+		}
+	}
+	defaultList.forEach(function(establishment){
+		if(establishment.category=="Coffee"){
+			establishment.show = true;
+		} 
+		else{
+			establishment.show = false;
+		} 
+	});
+	isHidden = false; 
+	map.fitBounds(bounds); 
+	document.getElementById("show-button").style["font-weight"] = "500";
+	document.getElementById("all-button").style["font-weight"] = "100";
+	document.getElementById("restaurant-button").style["font-weight"] = "100";
+	document.getElementById("bar-button").style["font-weight"] = "100";
+	document.getElementById("coffee-button").style["font-weight"] = "500";
+	document.getElementById("hide-button").style["font-weight"] = "100";
 }
 
 window.onload = function () { 
