@@ -87,7 +87,7 @@ function populateInfoWindow(establishment) {
 			if(isHidden){
 				hideListings();
 			}
-			if (initLaunch==false){
+			if (initLaunch===false){
 				largeInfoWindow.open(map, marker);
 				toggleBounce(marker);
 				marker.setMap(map);
@@ -109,7 +109,7 @@ function toggleBounce(marker) {
 		marker.setAnimation(google.maps.Animation.BOUNCE);
 		setTimeout(function(){
 			marker.setAnimation(null); 
-		}, 700)
+		}, 700);
 	}
 }
 
@@ -137,7 +137,7 @@ function showListings(){
 	document.getElementById("bar-button").style["font-weight"] = "100";
 	document.getElementById("coffee-button").style["font-weight"] = "100";
 	document.getElementById("hide-button").style["font-weight"] = "100";
-	document.getElementById("listview-id").style["display"] = "block";
+	document.getElementById("listview-id").style['display'] = "block";
 }
 
 function hideListings() {
@@ -242,5 +242,4 @@ function filterCoffee() {
 
 window.onload = function () { 
  	initLaunch = false;
-}
-
+};
