@@ -22,7 +22,7 @@ function initMap() {
 	largeInfoWindow = new google.maps.InfoWindow(); 
 	bounds = new google.maps.LatLngBounds(); 
 	
-	defaultList.forEach(function(establishment){ 
+	my.viewModel.mapList().forEach(function(establishment){ 
 
 		var self = this; 
 
@@ -125,7 +125,7 @@ function showListings(){
 		markers[i].setMap(map);
 		bounds.extend(markers[i].position); 
 	}
-	defaultList.forEach(function(establishment){ 
+	my.viewModel.mapList().forEach(function(establishment){ 
 		establishment.show = true; 
 	});
 
@@ -144,8 +144,8 @@ function hideListings() {
 	for(var i = 0; i < markers.length; i++){
 		markers[i].setMap(null); 
 	}
-	defaultList[1].show = false; 
-	defaultList.forEach(function(establishment){ 
+
+	my.viewModel.mapList().forEach(function(establishment){ 
 		establishment.show = false;
 	});
 	isHidden = true; 
@@ -167,7 +167,7 @@ function filterRestaurants() {
 			markers[i].setMap(null); 
 		}
 	}
-	defaultList.forEach(function(establishment){
+	my.viewModel.mapList().forEach(function(establishment){ 
 		if(establishment.category=="Restaurant"){
 			establishment.show = true;
 		} 
@@ -195,7 +195,7 @@ function filterBars() {
 			markers[i].setMap(null); 
 		}
 	}
-	defaultList.forEach(function(establishment){
+	my.viewModel.mapList().forEach(function(establishment){ 
 		if(establishment.category=="Bar"){
 			establishment.show = true;
 		} 
@@ -223,7 +223,7 @@ function filterCoffee() {
 			markers[i].setMap(null); 
 		}
 	}
-	defaultList.forEach(function(establishment){
+	my.viewModel.mapList().forEach(function(establishment){ 
 		if(establishment.category=="Coffee"){
 			establishment.show = true;
 		} 

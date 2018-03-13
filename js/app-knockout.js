@@ -31,8 +31,8 @@ var ViewModel = function() {
 	
 }
 
-ko.applyBindings(ViewModel);
-
+my = { viewModel: new ViewModel() };
+ko.applyBindings(my.viewModel);
 
 
 
