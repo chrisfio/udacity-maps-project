@@ -38,7 +38,7 @@
 			<h2 class="title-establishments">Establishments Nearby</h2>
 		</div>
 		<ul data-bind="foreach: mapList">
-			<div class="if-container" data-bind="visible: show">
+			<div class="if-container" data-bind="if: show">
 				<a href="#"><li><span class="map-list-item" data-bind="text: name, click: populateInfoWindow($data)"></span><span class="list-item-category" data-bind="text: category"></span></li></a>
 			</div>
 		</ul>
