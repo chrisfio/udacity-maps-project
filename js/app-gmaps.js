@@ -137,7 +137,6 @@ function showListings(){
 	document.getElementById("bar-button").style["font-weight"] = "100";
 	document.getElementById("coffee-button").style["font-weight"] = "100";
 	document.getElementById("hide-button").style["font-weight"] = "100";
-	document.getElementById("listview-id").style['display'] = "block";
 }
 
 function hideListings() {
