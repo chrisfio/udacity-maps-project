@@ -126,7 +126,7 @@ function showListings(){
 		bounds.extend(markers[i].position); 
 	}
 	my.viewModel.mapList().forEach(function(establishment){ 
-		establishment.show = true; 
+		establishment.show(true);
 	});
 
 	isHidden = false; 
@@ -145,7 +145,7 @@ function hideListings() {
 		markers[i].setMap(null); 
 	}
 	my.viewModel.mapList().forEach(function(establishment){ 
-		establishment.show = false;
+		establishment.show(false);
 	});
 	isHidden = true; 
 	document.getElementById("show-button").style["font-weight"] = "100";
@@ -168,10 +168,10 @@ function filterRestaurants() {
 	}
 	my.viewModel.mapList().forEach(function(establishment){ 
 		if(establishment.category=="Restaurant"){
-			establishment.show = true;
+			establishment.show(true);
 		} 
 		else{
-			establishment.show = false;
+			establishment.show(false);
 		} 
 	});
 	isHidden = false; 
@@ -196,10 +196,10 @@ function filterBars() {
 	}
 	my.viewModel.mapList().forEach(function(establishment){ 
 		if(establishment.category=="Bar"){
-			establishment.show = true;
+			establishment.show(true);
 		} 
 		else{
-			establishment.show = false;
+			establishment.show(false);
 		} 
 	});
 	isHidden = false; 
@@ -224,10 +224,10 @@ function filterCoffee() {
 	}
 	my.viewModel.mapList().forEach(function(establishment){ 
 		if(establishment.category=="Coffee"){
-			establishment.show = true;
+			establishment.show(true);
 		} 
 		else{
-			establishment.show = false;
+			establishment.show(false);
 		} 
 	});
 	isHidden = false; 
