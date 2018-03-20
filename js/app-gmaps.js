@@ -45,10 +45,6 @@ function initMap() {
 	});
 	map.fitBounds(bounds);
 
-	document.getElementById("all-button").addEventListener('click', showListings);
-	document.getElementById("restaurant-button").addEventListener('click', filterRestaurants);
-	document.getElementById("bar-button").addEventListener('click', filterBars);
-	document.getElementById("coffee-button").addEventListener('click', filterCoffee);
 	document.getElementById("show-button").addEventListener('click', showListings);
 	document.getElementById("hide-button").addEventListener('click', hideListings);
 }
@@ -239,6 +235,25 @@ function filterCoffee() {
 	document.getElementById("hide-button").style["font-weight"] = "100";
 }
 
+function updateList(category){
+	if(category==='all'){
+		showListings();
+	}
+	else if(category==='bars'){
+		filterBars();
+	}
+	else if(category==='restaurants'){
+		filterRestaurants();
+	}
+	else if(category==='coffee'){
+		filterCoffee(); 
+	}
+	else{
+		alert("error"); 
+	}
+}
+
 window.onload = function () { 
  	initLaunch = false;
 };
+
