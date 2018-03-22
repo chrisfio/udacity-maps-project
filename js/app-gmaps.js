@@ -239,7 +239,7 @@ function googleError() {
 
 window.onload = function () { 
  	initLaunch = false;
-}
+}; 
 
 function testing(selectedCategory, category) {
 	if (selectedCategory === "All"){
