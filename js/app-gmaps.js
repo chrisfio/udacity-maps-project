@@ -235,11 +235,11 @@ function updateList(category){
 // Catch Google Error
 function googleError() {
 	alert("Unable to connect to Google Maps, check your internet connection or go to maps.google.com to check if it's a Google error");
-};
+}
 
 window.onload = function () { 
  	initLaunch = false;
-};
+}
 
 function testing(selectedCategory, category) {
 	if (selectedCategory === "All"){
@@ -251,5 +251,5 @@ function testing(selectedCategory, category) {
 	else {
 		return false; 
 	}
-};
+}
 
