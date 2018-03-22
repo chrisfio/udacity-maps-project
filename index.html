@@ -14,18 +14,14 @@
 	<div id="map"></div>
 	<div class="show-hide-listings">
 		<div data-bind="click: showListings" class="show-container">
-			<div id="show-button">Show</div>
+			<div data-bind="style: { 'font-weight': my.viewModel.showButtonHighlight() ? 500 : 100 }" id="show-button">Show</div>
 		</div>
 		<div data-bind="click: hideListings" class="hide-container">
-			<div id="hide-button">Hide</div>
+			<div data-bind="style: { 'font-weight': my.viewModel.showButtonHighlight() ? 100 : 500 }" id="hide-button">Hide</div>
 		</div>
 	</div>
 	<div class="filter-listings">
-		<select class="dropdown" onChange={updateList(this.value)} value={this.props.default-value}>
-            <option value="all">All</option>
-            <option value="bars">Bars</option>
-            <option value="coffee">Coffee</option>
-            <option value="restaurants">Restaurants</option>
+		<select class="dropdown" data-bind="options: my.viewModel.availableCategories, value: my.viewModel.selectedCategory()">
  		</select>
 	</div>
 
@@ -34,8 +30,8 @@
 			<h2 class="title-establishments">Establishments Nearby</h2>
 		</div>
 		<ul data-bind="foreach: my.viewModel.mapList()">
-			<div class="if-container" data-bind="if: show">
-				<a href="#"><li><span class="map-list-item" data-bind="text: name, click: populateInfoWindow($data)"></span><span class="list-item-category" data-bind="text: category"></span></li></a>
+			<div class="if-container" data-bind="if: testing(my.viewModel.selectedCategory(), category)">
+				<a href="#"><li data-bind="click: populateInfoWindow($data)"><span class="map-list-item" data-bind="text: name"></span><span class="list-item-category" data-bind="text: category"></span></li></a>
 			</div>
 		</ul>
 	</div>
@@ -48,7 +44,7 @@
 	<script src="js/app-gmaps.js"></script>
 	<script src="js/app-knockout.js"></script>
 	<script async defer
-	    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyD0pfkXu1iaOZnhYSCwktjOUHJ66kB6B_c&v=3&callback=initMap">
+	    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyD0pfkXu1iaOZnhYSCwktjOUHJ66kB6B_c&v=3&callback=initMap" onerror="googleError()">
 	</script>
 </body>
 </html>

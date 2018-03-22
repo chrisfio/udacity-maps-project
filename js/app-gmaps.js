@@ -5,7 +5,7 @@ var marker, bounds, largeInfoWindow;
 var initLaunch = true; 
 var isHidden = false; 
 
-var fourSquareDate = formatDate(new Date());
+var fourSquareDate = "20180322";
 var fourSquareBaseURL = "https://api.foursquare.com/v2/venues/";
 var apiKeyFourSquare = "RLYHCNDHNQF3TZLGQQ5CXWRBVRQX5YPSGCHGALECU2BI0RGZ";
 var apiClientFourSquare = "VRQPDNPRC4MJ2SB3VC0CT5H21CHXRI4UIMTYV5WI4XT1ONSU";
@@ -106,15 +106,9 @@ function toggleBounce(marker) {
 	}
 }
 
-function formatDate(date) {
-	var day = ("0" + date.getDate()).slice(-2).toString(); 
-	var month = ("0" + (date.getMonth()+1)).slice(-2).toString();
-	var year = date.getFullYear().toString();
-	return year + month + day;
-}
+function showListings(bounds){
 
-function showListings(){
-
+	bounds = new google.maps.LatLngBounds();
 	initLaunch = true; 
 	setTimeout(function(){
 		initLaunch = false;
@@ -129,12 +123,7 @@ function showListings(){
 
 	isHidden = false; 
 	map.fitBounds(bounds); 
-	document.getElementById("show-button").style["font-weight"] = "500";
-	document.getElementById("all-button").style["font-weight"] = "500";
-	document.getElementById("restaurant-button").style["font-weight"] = "100";
-	document.getElementById("bar-button").style["font-weight"] = "100";
-	document.getElementById("coffee-button").style["font-weight"] = "100";
-	document.getElementById("hide-button").style["font-weight"] = "100";
+	my.viewModel.showButtonHighlight(true); 
 }
 
 function hideListings() {
@@ -145,15 +134,11 @@ function hideListings() {
 		establishment.show(false);
 	});
 	isHidden = true; 
-	document.getElementById("show-button").style["font-weight"] = "100";
-	document.getElementById("all-button").style["font-weight"] = "100";
-	document.getElementById("restaurant-button").style["font-weight"] = "100";
-	document.getElementById("bar-button").style["font-weight"] = "100";
-	document.getElementById("coffee-button").style["font-weight"] = "100";
-	document.getElementById("hide-button").style["font-weight"] = "500";
+	my.viewModel.showButtonHighlight(false); 
 }
 
 function filterRestaurants() {
+	bounds = new google.maps.LatLngBounds();
 	for(var i = 0; i < markers.length; i++){
 		if (markers[i].category === "Restaurant"){
 			markers[i].setMap(map);
@@ -173,15 +158,11 @@ function filterRestaurants() {
 	});
 	isHidden = false; 
 	map.fitBounds(bounds); 
-	document.getElementById("show-button").style["font-weight"] = "500";
-	document.getElementById("all-button").style["font-weight"] = "100";
-	document.getElementById("restaurant-button").style["font-weight"] = "500";
-	document.getElementById("bar-button").style["font-weight"] = "100";
-	document.getElementById("coffee-button").style["font-weight"] = "100";
-	document.getElementById("hide-button").style["font-weight"] = "100";
+	my.viewModel.showButtonHighlight(true); 
 }
 
 function filterBars() {
+	bounds = new google.maps.LatLngBounds();
 	for(var i = 0; i < markers.length; i++){
 		if (markers[i].category === "Bar"){
 			markers[i].setMap(map);
@@ -201,15 +182,11 @@ function filterBars() {
 	});
 	isHidden = false; 
 	map.fitBounds(bounds); 
-	document.getElementById("show-button").style["font-weight"] = "500";
-	document.getElementById("all-button").style["font-weight"] = "100";
-	document.getElementById("restaurant-button").style["font-weight"] = "100";
-	document.getElementById("bar-button").style["font-weight"] = "500";
-	document.getElementById("coffee-button").style["font-weight"] = "100";
-	document.getElementById("hide-button").style["font-weight"] = "100";
+	my.viewModel.showButtonHighlight(true); 
 }
 
 function filterCoffee() {
+	bounds = new google.maps.LatLngBounds();
 	for(var i = 0; i < markers.length; i++){
 		if (markers[i].category === "Coffee"){
 			markers[i].setMap(map);
@@ -229,29 +206,25 @@ function filterCoffee() {
 	});
 	isHidden = false; 
 	map.fitBounds(bounds); 
-	document.getElementById("show-button").style["font-weight"] = "500";
-	document.getElementById("all-button").style["font-weight"] = "100";
-	document.getElementById("restaurant-button").style["font-weight"] = "100";
-	document.getElementById("bar-button").style["font-weight"] = "100";
-	document.getElementById("coffee-button").style["font-weight"] = "500";
-	document.getElementById("hide-button").style["font-weight"] = "100";
+	my.viewModel.showButtonHighlight(true); 
 }
 
 function updateList(category){
+
 	initLaunch = true; 
 	setTimeout(function(){
 		initLaunch = false;
 	},500); 
-	if(category==='all'){
+	if(category==='All'){
 		showListings();
 	}
-	else if(category==='bars'){
+	else if(category==='Restaurants'){
 		filterBars();
 	}
-	else if(category==='restaurants'){
+	else if(category==='Bars'){
 		filterRestaurants();
 	}
-	else if(category==='coffee'){
+	else if(category==='Coffee'){
 		filterCoffee(); 
 	}
 	else{
@@ -259,7 +232,24 @@ function updateList(category){
 	}
 }
 
+// Catch Google Error
+function googleError() {
+	alert("Unable to connect to Google Maps, check your internet connection or go to maps.google.com to check if it's a Google error");
+};
+
 window.onload = function () { 
  	initLaunch = false;
+};
+
+function testing(selectedCategory, category) {
+	if (selectedCategory === "All"){
+		return true;
+	}
+	else if (category === selectedCategory){
+		return true;
+	}
+	else {
+		return false; 
+	}
 };
 
