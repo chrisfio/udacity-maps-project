@@ -44,9 +44,6 @@ function initMap() {
 
 	});
 	map.fitBounds(bounds);
-
-	document.getElementById("show-button").addEventListener('click', showListings);
-	document.getElementById("hide-button").addEventListener('click', hideListings);
 }
 
 function populateInfoWindow(establishment) {
@@ -117,6 +114,11 @@ function formatDate(date) {
 }
 
 function showListings(){
+
+	initLaunch = true; 
+	setTimeout(function(){
+		initLaunch = false;
+	},500); 
 	for(var i = 0; i < markers.length; i++){
 		markers[i].setMap(map);
 		bounds.extend(markers[i].position); 
@@ -236,6 +238,10 @@ function filterCoffee() {
 }
 
 function updateList(category){
+	initLaunch = true; 
+	setTimeout(function(){
+		initLaunch = false;
+	},500); 
 	if(category==='all'){
 		showListings();
 	}
@@ -249,7 +255,7 @@ function updateList(category){
 		filterCoffee(); 
 	}
 	else{
-		alert("error"); 
+		alert(category); 
 	}
 }
 

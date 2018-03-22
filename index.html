@@ -13,15 +13,15 @@
 <body>
 	<div id="map"></div>
 	<div class="show-hide-listings">
-		<div class="show-container">
+		<div data-bind="click: showListings" class="show-container">
 			<div id="show-button">Show</div>
 		</div>
-		<div class="hide-container">
+		<div data-bind="click: hideListings" class="hide-container">
 			<div id="hide-button">Hide</div>
 		</div>
 	</div>
 	<div class="filter-listings">
-		<select onChange={this.changeCat} value={this.props.default-value}>
+		<select class="dropdown" onChange={updateList(this.value)} value={this.props.default-value}>
             <option value="all">All</option>
             <option value="bars">Bars</option>
             <option value="coffee">Coffee</option>
@@ -47,12 +47,6 @@
 	<script src="js/list.js"></script>
 	<script src="js/app-gmaps.js"></script>
 	<script src="js/app-knockout.js"></script>
-	<script changeCat = (e) => {
-	    // this changeCat function will get event object as argument and 
-	    //you can access the category select in this function as  "e.target.value"
-	    updateList(e.target.value);
-	  }
-	</script>
 	<script async defer
 	    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyD0pfkXu1iaOZnhYSCwktjOUHJ66kB6B_c&v=3&callback=initMap">
 	</script>

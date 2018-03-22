@@ -65,7 +65,7 @@ h2 {
   height: 325px;
   width: 325px;
   position: absolute;
-  bottom: 2%;
+  bottom: 35px;
   left: 1%;
   background: rgba(255, 255, 255, .95); 
   box-shadow: 0 10px 20px rgba(0,0,0,0.19), 0 6px 6px rgba(0,0,0,0.23);
@@ -156,7 +156,7 @@ h2 {
   font-weight: 100;
 }
 
-#all-button {
+.dropdown {
   direction: ltr;
   overflow: hidden;
   text-align: center;
@@ -175,63 +175,6 @@ h2 {
   font-weight: 500;
 }
 
-#restaurant-button {
-  direction: ltr;
-  overflow: hidden;
-  text-align: center;
-  position: relative;
-  color: rgb(0, 0, 0);
-  font-family: Roboto, Arial, sans-serif;
-  user-select: none;
-  font-size: 11px;
-  background-color: rgb(255, 255, 255);
-  padding: 11px;
-  border-bottom-left-radius: 2px;
-  border-top-left-radius: 2px;
-  background-clip: padding-box;
-  box-shadow: rgba(0, 0, 0, 0.3) 0px 1px 4px -1px;
-  min-width: 21px;
-  font-weight: 100;
-}
-
-#bar-button {
-  direction: ltr;
-  overflow: hidden;
-  text-align: center;
-  position: relative;
-  color: rgb(0, 0, 0);
-  font-family: Roboto, Arial, sans-serif;
-  user-select: none;
-  font-size: 11px;
-  background-color: rgb(255, 255, 255);
-  padding: 11px;
-  border-bottom-left-radius: 2px;
-  border-top-left-radius: 2px;
-  background-clip: padding-box;
-  box-shadow: rgba(0, 0, 0, 0.3) 0px 1px 4px -1px;
-  min-width: 21px;
-  font-weight: 100;
-}
-
-#coffee-button {
-  direction: ltr;
-  overflow: hidden;
-  text-align: center;
-  position: relative;
-  color: rgb(0, 0, 0);
-  font-family: Roboto, Arial, sans-serif;
-  user-select: none;
-  font-size: 11px;
-  background-color: rgb(255, 255, 255);
-  padding: 11px;
-  border-bottom-left-radius: 2px;
-  border-top-left-radius: 2px;
-  background-clip: padding-box;
-  box-shadow: rgba(0, 0, 0, 0.3) 0px 1px 4px -1px;
-  min-width: 21px;
-  font-weight: 100;
-}
-
 @media only screen and (max-width: 500px) {
 
   li {
@@ -241,9 +184,9 @@ h2 {
 
   .listview{
     height: 30%;
-    width: 96%;
+    width: 80%;
     position: absolute;
-    bottom: 2%;
+    bottom: 35px;
     left: 2%;
     background: rgba(255, 255, 255, .95); 
     box-shadow: 0 10px 20px rgba(0,0,0,0.19), 0 6px 6px rgba(0,0,0,0.23);
