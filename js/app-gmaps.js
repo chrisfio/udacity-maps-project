@@ -106,9 +106,7 @@ function toggleBounce(marker) {
 	}
 }
 
-function showListings(bounds){
-
-	bounds = new google.maps.LatLngBounds();
+function showListings(){
 	initLaunch = true; 
 	setTimeout(function(){
 		initLaunch = false;
@@ -122,7 +120,9 @@ function showListings(bounds){
 	});
 
 	isHidden = false; 
-	map.fitBounds(bounds); 
+	if(bounds){
+		map.fitBounds(bounds); 
+	}
 	my.viewModel.showButtonHighlight(true); 
 }
 
@@ -148,6 +148,10 @@ function filterRestaurants() {
 			markers[i].setMap(null); 
 		}
 	}
+	initLaunch = true; 
+	setTimeout(function(){
+		initLaunch = false;
+	},500);
 	my.viewModel.mapList().forEach(function(establishment){ 
 		if(establishment.category=="Restaurant"){
 			establishment.show(true);
@@ -172,6 +176,10 @@ function filterBars() {
 			markers[i].setMap(null); 
 		}
 	}
+	initLaunch = true; 
+	setTimeout(function(){
+		initLaunch = false;
+	},500);
 	my.viewModel.mapList().forEach(function(establishment){ 
 		if(establishment.category=="Bar"){
 			establishment.show(true);
@@ -196,6 +204,10 @@ function filterCoffee() {
 			markers[i].setMap(null); 
 		}
 	}
+	initLaunch = true; 
+	setTimeout(function(){
+		initLaunch = false;
+	},500);
 	my.viewModel.mapList().forEach(function(establishment){ 
 		if(establishment.category=="Coffee"){
 			establishment.show(true);
@@ -243,10 +255,23 @@ window.onload = function () {
 
 function testing(selectedCategory, category) {
 	if (selectedCategory === "All"){
-		return true;
+
+		showListings();
+		return true; 
 	}
-	else if (category === selectedCategory){
-		return true;
+	else if (selectedCategory === category){
+		if(selectedCategory==='Coffee'){
+			filterCoffee();
+			return true; 
+		}
+		else if(selectedCategory==='Restaurant'){
+			filterRestaurants();
+			return true; 
+		}
+		else if(selectedCategory==='Bar'){
+			filterBars();
+			return true; 
+		}
 	}
 	else {
 		return false; 

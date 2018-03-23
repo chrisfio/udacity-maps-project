@@ -14,8 +14,8 @@ var Establishment = function(data) {
 var ViewModel = function() {
 	var self = this; 
 	self.showButtonHighlight = ko.observable(true); 
-	self.availableCategories = ko.observableArray(['All', 'Restaurants', 'Coffee', 'Bars']); 
-	self.selectedCategory = ko.observable("All");
+	self.availableCategories = ko.observableArray(['All', 'Restaurant', 'Coffee', 'Bar']); 
+	selectedCategory = ko.observable("All");
 
 	self.mapList = ko.observableArray([]);
 
